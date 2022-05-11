@@ -1,0 +1,111 @@
+From f6e47c46d9a7bd553f2ef28ae0cfd125f335c0b2 Mon Sep 17 00:00:00 2001
+From: Joshua <jqshuv@gmail.com>
+Date: Wed, 11 May 2022 22:57:25 +0200
+Subject: [PATCH] Change Branding
+
+---
+ build.gradle                                     | 16 ++++++++--------
+ .../serverstarter/ServerStarter.kt               |  8 ++++----
+ server-setup-config.yaml => userver.yaml         |  0
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+ rename server-setup-config.yaml => userver.yaml (100%)
+
+diff --git a/build.gradle b/build.gradle
+index ce54b6e..5f123e1 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -64,7 +64,7 @@ task copyJar(type: Copy) {
+ 
+ 
+     from file("$buildDir/libs/serverstarter-${version}.jar")
+-    into file("$buildDir/dist/serverstarter-$version/")
++    into file("$buildDir/dist/ustarter-$version/")
+ }
+ 
+ task packageDist(type: Copy) {
+@@ -73,10 +73,10 @@ task packageDist(type: Copy) {
+ 
+     from file("src/main/resources/startserver.bat")
+     from file("src/main/resources/startserver.sh")
+-    from file("server-setup-config.yaml")
++    from file("userver.yaml")
+ 
+ 
+-    into file("$buildDir/dist/serverstarter-$version/")
++    into file("$buildDir/dist/ustarter-$version/")
+ 
+     filter { it.replaceAll("@@serverstarter-libVersion@@", version as String) }
+ }
+@@ -85,20 +85,20 @@ task zipDist (type: Zip) {
+     dependsOn packageDist
+     group = "build"
+ 
+-    from file("$buildDir/dist/serverstarter-$version/")
++    from file("$buildDir/dist/ustarter-$version/")
+     include '*'
+     include '*/**'
+-    archiveName = "serverstarter-${version}.zip"
++    archiveName = "uStarter-${version}.zip"
+     destinationDir = file("$buildDir/release/")
+ }
+ 
+ 
+ githubRelease {
+     token = getGithubKey()
+-    owner = "BloodWorkXGaming"
+-    repo = "ServerStarter"
++    owner = "Unately"
++    repo = "uStarter"
+ 
+-    releaseAssets file("$buildDir/release/serverstarter-${version}.zip")
++    releaseAssets file("$buildDir/release/ustarter-${version}.zip")
+ }
+ 
+ tasks.githubRelease.dependsOn zipDist
+diff --git a/src/main/kotlin/atm/bloodworkxgaming/serverstarter/ServerStarter.kt b/src/main/kotlin/atm/bloodworkxgaming/serverstarter/ServerStarter.kt
+index c8d2fdf..0134a5d 100644
+--- a/src/main/kotlin/atm/bloodworkxgaming/serverstarter/ServerStarter.kt
++++ b/src/main/kotlin/atm/bloodworkxgaming/serverstarter/ServerStarter.kt
+@@ -27,7 +27,7 @@ class ServerStarter(args: Array<String>) {
+         private const val CURRENT_SPEC = 2
+         private const val VERSION = "2.3.1"
+ 
+-        val LOGGER = PrimitiveLogger(File("serverstarter.log"))
++        val LOGGER = PrimitiveLogger(File("userver.log"))
+         var lockFile: LockFile
+             private set
+         val config: ConfigFile
+@@ -63,7 +63,7 @@ class ServerStarter(args: Array<String>) {
+             val file: ConfigFile
+ 
+             try {
+-                file = File("server-setup-config.yaml").inputStream().use { yaml.load(it) }
++                file = File("userver.yaml").inputStream().use { yaml.load(it) }
+             } catch (e: FileNotFoundException) {
+                 LOGGER.error("There is no config file given.", e)
+                 throw RuntimeException("No config file given.", e)
+@@ -83,7 +83,7 @@ class ServerStarter(args: Array<String>) {
+          */
+         private fun readLockFile(): LockFile {
+             val yaml = Yaml(Constructor(LockFile::class.java), rep, options)
+-            val file = File("serverstarter.lock")
++            val file = File("userver.lock")
+ 
+             if (file.exists()) {
+                 try {
+@@ -98,7 +98,7 @@ class ServerStarter(args: Array<String>) {
+             } else {
+                 return LockFile()
+             }
+-        }
++        }	
+ 
+         /**
+          * Writes the lockfile to disk
+diff --git a/server-setup-config.yaml b/userver.yaml
+similarity index 100%
+rename from server-setup-config.yaml
+rename to userver.yaml
+-- 
+2.25.1
+
