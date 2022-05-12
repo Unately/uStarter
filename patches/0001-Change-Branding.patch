@@ -98,7 +98,7 @@ index c8d2fdf..0134a5d 100644
                  return LockFile()
              }
 -        }
-+        }	
++        }
  
          /**
           * Writes the lockfile to disk
