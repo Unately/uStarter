@@ -17,7 +17,8 @@ index ce54b6e..5f123e1 100644
 @@ -64,7 +64,7 @@ task copyJar(type: Copy) {
  
  
-     from file("$buildDir/libs/serverstarter-${version}.jar")
+-    from file("$buildDir/libs/serverstarter-${version}.jar")
++    from file("$buildDir/libs/uStarter-${version}.jar")
 -    into file("$buildDir/dist/serverstarter-$version/")
 +    into file("$buildDir/dist/ustarter-$version/")
  }
