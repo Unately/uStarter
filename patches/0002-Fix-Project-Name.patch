@@ -1,0 +1,20 @@
+From a258506fe0ce3fa42b28fc685eb9244167fd86da Mon Sep 17 00:00:00 2001
+From: Joshua <jqshuv@gmail.com>
+Date: Fri, 13 May 2022 10:19:19 +0200
+Subject: [PATCH] [TEMP] Fix Project Name
+
+---
+ settings.gradle | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/settings.gradle b/settings.gradle
+index 2aff209..f9ca64a 100644
+--- a/settings.gradle
++++ b/settings.gradle
+@@ -1,2 +1,2 @@
+-rootProject.name = 'serverstarter'
++rootProject.name = 'uStarter'
+ 
+-- 
+2.35.3.windows.1
+
